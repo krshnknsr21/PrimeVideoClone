@@ -161,7 +161,6 @@ class _SignupState extends State<Signup> {
                   title: const Text(
                     "Show password",
                     style: TextStyle(
-                      fontFamily: "SourceSansPro",
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -191,7 +190,6 @@ class _SignupState extends State<Signup> {
                           child: Text(
                             'Continue',
                             style: TextStyle(
-                              fontFamily: "SourceSansPro",
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -210,6 +208,11 @@ class _SignupState extends State<Signup> {
                   },
                   child: const Text(
                     "Already have an account?",
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
