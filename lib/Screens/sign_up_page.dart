@@ -35,10 +35,10 @@ class _SignupState extends State<Signup> {
                 ),
                 const Center(
                     child: Text(
-                      "Sign up with your email",
+                      "Sign up with your mobile number",
                       style: TextStyle(
                         fontFamily: "SourceSansPro",
-                        fontSize: 25,
+                        fontSize: 23,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -59,7 +59,7 @@ class _SignupState extends State<Signup> {
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: "SourceSansPro",
-                    fontSize: 20.0,
+                    fontSize: 15.0,
                   ),
                   decoration: const InputDecoration(
                       filled: true,
@@ -67,7 +67,7 @@ class _SignupState extends State<Signup> {
                       hintText: "Name",
                       hintStyle: TextStyle(
                           color: Colors.white54,
-                          fontSize: 18.0,
+                          fontSize: 15.0,
                           fontFamily: "SourceSansPro"
                       ),
                       border: OutlineInputBorder(),
@@ -79,7 +79,7 @@ class _SignupState extends State<Signup> {
                       )
                   ),
                 ),
-                SizedBox(height: height*0.03),
+                SizedBox(height: height*0.01),
                 TextFormField(
                   onChanged: (text) {
                     print('First text field: $text');
@@ -87,7 +87,7 @@ class _SignupState extends State<Signup> {
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: "SourceSansPro",
-                    fontSize: 20.0,
+                    fontSize: 15.0,
                   ),
                   decoration: const InputDecoration(
                       filled: true,
@@ -95,7 +95,7 @@ class _SignupState extends State<Signup> {
                       hintText: "Email",
                       hintStyle: TextStyle(
                           color: Colors.white54,
-                          fontSize: 18.0,
+                          fontSize: 15.0,
                           fontFamily: "SourceSansPro"
                       ),
                       border: OutlineInputBorder(),
@@ -115,24 +115,24 @@ class _SignupState extends State<Signup> {
                     }
                   },
                 ),
-                SizedBox(height: height*0.03),
+                SizedBox(height: height*0.01),
                 TextFormField(
+                  obscureText: !showPassword,
                   onChanged: (text) {
                     print('First text field: $text');
                   },
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: "SourceSansPro",
-                    fontSize: 20.0,
+                    fontSize: 15.0,
                   ),
-                  obscureText: !showPassword,
                   decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.blueGrey,
                       hintText: "Create a password",
                       hintStyle: TextStyle(
                           color: Colors.white54,
-                          fontSize: 18.0,
+                          fontSize: 15.0,
                           fontFamily: "SourceSansPro"
                       ),
                       border: OutlineInputBorder(
@@ -157,31 +157,38 @@ class _SignupState extends State<Signup> {
                     }
                   },
                 ),
-                CheckboxListTile(
-                  title: const Text(
-                    "Show password",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    unselectedWidgetColor: Colors.white,
+                    disabledColor: Colors.white,
+                    focusColor: Colors.orangeAccent,
                   ),
-                  dense: true,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
-                  activeColor: Colors.white,
-                  checkColor: Colors.amber,
-                  value: showPassword,
-                  onChanged: (newValue) {
-                    setState(() {
-                      showPassword = !showPassword;
-                    });
-                  },
-                  controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                  child: CheckboxListTile(
+                    title: const Text(
+                      "Show password",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    dense: true,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
+                    activeColor: Colors.white,
+                    checkColor: Colors.amber,
+                    value: showPassword,
+                    onChanged: (newValue) {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      return;
+                      Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
                     }
                   },
                   child: const SizedBox(
@@ -204,7 +211,7 @@ class _SignupState extends State<Signup> {
                 SizedBox(height: height*0.01),
                 TextButton(
                   onPressed: () {
-                    return;
+                    Navigator.pushNamed(context, '/login');
                   },
                   child: const Text(
                     "Already have an account?",
@@ -215,12 +222,64 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: RichText(
+                    text: const TextSpan(
+                      text: 'Message and Data rates may apply.\n\n',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                        text: 'By creating an account, you agree to Amazon\'s ',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Conditions of Use',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' and ',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Privacy Notice',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '.',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         )
     );
   }
-
-
 }
