@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:card_swiper/card_swiper.dart';
 // import 'package:prime_video_clone/Screens/home_page.dart';
 

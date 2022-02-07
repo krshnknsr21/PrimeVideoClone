@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prime_video_clone/Screens/downloads_page.dart';
 import 'package:prime_video_clone/components/category_row.dart';
 import 'package:prime_video_clone/components/carousel.dart';
 
@@ -101,7 +100,7 @@ class ChoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width= MediaQuery.of(context).size.width;
+    // final double width= MediaQuery.of(context).size.width;
 
     return ListView(
         children: const <Widget>[
