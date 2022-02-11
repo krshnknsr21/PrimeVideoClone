@@ -13,7 +13,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
+    // final double height = MediaQuery.of(context).size.height;
     // final double width= MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextFormField(
                   onChanged: (text) {
-                    print('email or number: $text');
+                    // print('email or number: $text');
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   obscureText: !showPassword,
                   onChanged: (text) {
-                    print('password field: $text');
+                    // print('password field: $text');
                   },
                   validator: (value) {
                     if (value!.isEmpty) {

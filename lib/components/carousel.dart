@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 // import 'package:prime_video_clone/Screens/home_page.dart';
@@ -34,7 +36,7 @@ class _ShowCarouselState extends State<ShowCarousel> {
           // itemWidth: width,
           itemBuilder: (BuildContext context, int index) {
             final image = thumbnailImages[index];
-            return InkWell(
+            return GestureDetector(
               onTap: () {
                 print('tapped on image');
               },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prime_video_clone/Screens/home_page.dart';
 import 'package:prime_video_clone/Screens/downloads_page.dart';
+import 'package:prime_video_clone/Screens/find_page.dart';
 
 class BottomTabController extends StatefulWidget {
   const BottomTabController({Key? key}) : super(key: key);
@@ -10,13 +11,12 @@ class BottomTabController extends StatefulWidget {
 }
 
 class _BottomTabControllerState extends State<BottomTabController> {
-
   int selectedIndex = 0;
 
   final tabs = const [
     HomePage(),
     DownloadsPage(),
-    HomePage(),
+    FindPage(),
     DownloadsPage(),
     HomePage(),
   ];
