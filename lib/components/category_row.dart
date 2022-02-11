@@ -2,13 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:prime_video_clone/Screens/home_page.dart';
 // import 'package:prime_video_clone/main.dart';
 
+class ImageList {
+  final String source;
+  const ImageList({required this.source});
+}
+
+const List<ImageList> row1 = <ImageList>[
+  ImageList(source: 'assets/r1c1.jpg'),
+  ImageList(source: 'assets/r1c2.jpg'),
+  ImageList(source: 'assets/r1c3.jpg'),
+  ImageList(source: 'assets/r1c4.jpg'),
+];
+
+const List<ImageList> row2 = <ImageList>[
+  ImageList(source: 'assets/r2c1.jpg'),
+  ImageList(source: 'assets/r2c2.jpg'),
+  ImageList(source: 'assets/r2c3.jpg'),
+  ImageList(source: 'assets/r2c4.jpg'),
+];
+
 class CategoryRow extends StatelessWidget {
   final String mainTitle;
   final String secondaryTitle;
   final List<ImageList> thumbnailImages;
   final bool addSecondaryTitle;
+  final bool rightArrowTrue;
 
-  const CategoryRow({Key? key,required this.mainTitle,required this.secondaryTitle, required this.addSecondaryTitle, required this.thumbnailImages}) : super(key: key);
+  const CategoryRow({Key? key,required this.mainTitle,required this.secondaryTitle, required this.addSecondaryTitle, required this.rightArrowTrue, required this.thumbnailImages}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +57,27 @@ class CategoryRow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    mainTitle,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.2,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        mainTitle,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.2,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Visibility(
+                        visible: rightArrowTrue,
+                        child: const Icon(
+                          Icons.chevron_right_outlined,
+                          color: Colors.white70,
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),

@@ -24,7 +24,7 @@ class _FindPageState extends State<FindPage> {
         height: 60.0,
         child: TextButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey.shade500),
+            backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF1d2d3c)),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
           onPressed: () {},
@@ -76,13 +76,21 @@ class _FindPageState extends State<FindPage> {
 
     return Scaffold(
         key: _scaffoldKey,
-        backgroundColor: Colors.blueGrey[900],
         body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.01, 0.08, 0.18, 0.25, 0.3, 1],
+                colors: [Color(0xFF0f4e71), Color(0xFF103751), Color(0xFF0e202e), Color(0xFF0f1b27), Color(0xFF0e171e), Color(0xFF0E171E)]
+            ),
+          ),
           padding: EdgeInsets.symmetric(horizontal: (width*0.05)),
           child: Form(
             key: formKey, //key for form
             child: ListView(
               children: [
+                //TODO: change text field to row
                 TextField(
                   onChanged: (text) {},
                   style: const TextStyle(
@@ -92,19 +100,21 @@ class _FindPageState extends State<FindPage> {
                   ),
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search_outlined),
-                    prefixIconColor: Colors.white,
+                    prefixIconColor: Color(0xffffffff),
                     suffixIcon: Icon(Icons.mic),
-                    fillColor: Colors.blueGrey,
+                    filled: true,
+                    fillColor: Color(0x610e171e),
                     hintText: 'Search by actor, title..',
                     hintStyle: TextStyle(
                       color: Colors.white54,
                       fontSize: 18.0,
                       fontFamily: "SourceSansPro"
                     ),
+                    focusColor: Colors.white,
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
-                        width: 2.0,
-                        color: Colors.grey,
+                        width: 10.0,
+                        color: Colors.white,
                       ),
                     ),
                   ),

@@ -12,7 +12,7 @@ class DownloadItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 100.0,
-      color: Colors.blueGrey[800],
+      color: const Color(0xFF1b252f),
       margin: const EdgeInsets.symmetric(vertical: 3.0),
       child: Row(
         children: [
@@ -36,7 +36,7 @@ class DownloadItem extends StatelessWidget {
                     Text(
                       episodeInfo,
                       style: const TextStyle(
-                        color: Colors.grey,
+                        color: Color(0xFF99a5b1),
                         fontSize: 14.0,
                       ),
                     ),
@@ -46,7 +46,7 @@ class DownloadItem extends StatelessWidget {
                     Text(
                       fileSize,
                       style: const TextStyle(
-                        color: Colors.grey,
+                        color: Color(0xFF99a5b1),
                         fontSize: 14.0,
                       ),
                     ),
@@ -56,7 +56,7 @@ class DownloadItem extends StatelessWidget {
                 const Text(
                   'prime',
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFF02a2d0),
                     fontSize: 15.0,
                     fontWeight: FontWeight.bold,
                   ),

@@ -63,25 +63,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class ImageList {
-  final String source;
-  const ImageList({required this.source});
-}
-
-const List<ImageList> row1 = <ImageList>[
-  ImageList(source: 'assets/r1c1.jpg'),
-  ImageList(source: 'assets/r1c2.jpg'),
-  ImageList(source: 'assets/r1c3.jpg'),
-  ImageList(source: 'assets/r1c4.jpg'),
-];
-
-const List<ImageList> row2 = <ImageList>[
-  ImageList(source: 'assets/r2c1.jpg'),
-  ImageList(source: 'assets/r2c2.jpg'),
-  ImageList(source: 'assets/r2c3.jpg'),
-  ImageList(source: 'assets/r2c4.jpg'),
-];
-
 class Choice {
   final String title;
   const Choice({required this.title});
@@ -100,15 +81,13 @@ class ChoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double width= MediaQuery.of(context).size.width;
-
     return ListView(
         children: const <Widget>[
           ShowCarousel(),
-          CategoryRow(mainTitle: 'Continue watching', secondaryTitle: '', thumbnailImages: row1, addSecondaryTitle: false,),
-          CategoryRow(mainTitle: 'Binge-worthy TV', secondaryTitle: '', thumbnailImages: row2, addSecondaryTitle: false,),
-          CategoryRow(mainTitle: 'Top-rated shows', secondaryTitle: '', thumbnailImages: row1, addSecondaryTitle: false,),
-          CategoryRow(mainTitle: 'Top-rated categories', secondaryTitle: '', thumbnailImages: row2, addSecondaryTitle: false,),
+          CategoryRow(mainTitle: 'Continue watching', secondaryTitle: '', thumbnailImages: row1, addSecondaryTitle: false, rightArrowTrue: false),
+          CategoryRow(mainTitle: 'Binge-worthy TV', secondaryTitle: '', thumbnailImages: row2, addSecondaryTitle: false, rightArrowTrue: false),
+          CategoryRow(mainTitle: 'Top-rated shows', secondaryTitle: '', thumbnailImages: row1, addSecondaryTitle: false, rightArrowTrue: false),
+          CategoryRow(mainTitle: 'Top-rated categories', secondaryTitle: '', thumbnailImages: row2, addSecondaryTitle: false, rightArrowTrue: false),
         ]
     );
   }
