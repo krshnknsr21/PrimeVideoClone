@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prime_video_clone/components/category_row.dart';
 import 'package:prime_video_clone/components/carousel.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -28,6 +29,9 @@ class _HomePageState extends State<HomePage> {
                 'assets/prime_logo.png',
                 height: 80.0,
               ),
+              // child: Text(
+              //   user.email!,
+              // ),
             ),
             centerTitle: true,
             // backgroundColor: Colors.blueGrey[900],

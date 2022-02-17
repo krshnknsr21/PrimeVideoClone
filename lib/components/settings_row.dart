@@ -7,8 +7,9 @@ class SettingsRow extends StatefulWidget {
   String secondaryText;
   bool secondaryTextTrue;
   bool toggleButton;
+  Function rowFunction;
 
-  SettingsRow({Key? key, required this.mainText,required this.secondaryText, required this.secondaryTextTrue, required this.toggleButton}) : super(key: key);
+  SettingsRow({Key? key, required this.mainText,required this.secondaryText, required this.secondaryTextTrue, required this.toggleButton, required this.rowFunction}) : super(key: key);
 
   @override
   _SettingsRowState createState() => _SettingsRowState();
@@ -26,7 +27,7 @@ class _SettingsRowState extends State<SettingsRow> {
               _toggleSwitchState = !_toggleSwitchState;
             });
           } else {
-            return;
+            widget.rowFunction();
           }
         },
         child: Column(

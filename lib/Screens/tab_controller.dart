@@ -13,7 +13,8 @@ class BottomTabController extends StatefulWidget {
 }
 
 class _BottomTabControllerState extends State<BottomTabController> {
-  int selectedIndex = 4;
+
+  int selectedIndex = 0;
 
   final tabs = const [
     HomePage(),
@@ -25,6 +26,7 @@ class _BottomTabControllerState extends State<BottomTabController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

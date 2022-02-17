@@ -1,12 +1,17 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import 'package:prime_video_clone/Screens/loading_page.dart';
 import 'package:prime_video_clone/Screens/login_page.dart';
 import 'package:prime_video_clone/Screens/sign_up_page.dart';
 import 'package:prime_video_clone/Screens/tab_controller.dart';
 
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -17,14 +22,55 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/login',
       routes: {
-        '/loading': (context) => const LoadingPage(),
-        '/login': (context) => const LoginPage(),
-        '/signup': (context) => const Signup(),
-        '/home': (context) => const BottomTabController(),
+        '/login': (context) => StreamBuilder <User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Something went wrong!!'),
+                );
+              } else if (snapshot.hasData) {
+                return const BottomTabController();
+              } else if (snapshot.hasError){
+                return const Center(child: Text('Something went wrong!!'),);
+              } else {
+                if (kDebugMode) {
+                  print('not logged in!!!');
+                }
+                return const LoginPage();
+              }
+            }
+        ),
+        '/signup': (context) => StreamBuilder <User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Something went wrong!!'),
+                );
+              } else if (snapshot.hasData) {
+                return const BottomTabController();
+              } else if (snapshot.hasError){
+                return const Center(child: Text('Something went wrong!!'),);
+              } else {
+                if (kDebugMode) {
+                  print('not logged in!!!');
+                }
+                return const SignupPage();
+              }
+            }
+        ),
       },
-      title: 'Amazon Prime Video',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),

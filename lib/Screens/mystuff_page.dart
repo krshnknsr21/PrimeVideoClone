@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prime_video_clone/components/settings_row.dart';
 
@@ -9,6 +10,11 @@ class MyStuffPage extends StatefulWidget {
 }
 
 class _MyStuffPageState extends State<MyStuffPage> {
+
+  void signOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,18 +43,18 @@ class _MyStuffPageState extends State<MyStuffPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: ListView(
             children: [
-              SettingsRow(mainText: 'Stream & download', secondaryText: 'Manage quality and Wi-Fi', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Notifications', secondaryText: 'On', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Auto Play', secondaryText: 'Play the next episode automatically', secondaryTextTrue: true, toggleButton: true),
-              SettingsRow(mainText: 'Parental Controls', secondaryText: 'Control what you can watch', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Registered devices', secondaryText: 'See all registered devices', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Clear video search history', secondaryText: '', secondaryTextTrue: false, toggleButton: false),
-              SettingsRow(mainText: 'Signed in as Krishna', secondaryText: 'Sign out of all Amazon apps', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Manage your Prime Video Channels', secondaryText: 'View or change your subscriptions', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Hidden videos', secondaryText: '', secondaryTextTrue: false, toggleButton: false),
-              SettingsRow(mainText: 'Language', secondaryText: 'English', secondaryTextTrue: true, toggleButton: false),
-              SettingsRow(mainText: 'Help & Feedback', secondaryText: '', secondaryTextTrue: false, toggleButton: false),
-              SettingsRow(mainText: 'About & Legal', secondaryText: '', secondaryTextTrue: false, toggleButton: false),
+              SettingsRow(mainText: 'Stream & download', secondaryText: 'Manage quality and Wi-Fi', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Notifications', secondaryText: 'On', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Auto Play', secondaryText: 'Play the next episode automatically', secondaryTextTrue: true, toggleButton: true, rowFunction: () {},),
+              SettingsRow(mainText: 'Parental Controls', secondaryText: 'Control what you can watch', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Registered devices', secondaryText: 'See all registered devices', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Clear video search history', secondaryText: '', secondaryTextTrue: false, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Signed in as Krishna', secondaryText: 'Sign out of all Amazon apps', secondaryTextTrue: true, toggleButton: false, rowFunction: signOut,),
+              SettingsRow(mainText: 'Manage your Prime Video Channels', secondaryText: 'View or change your subscriptions', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Hidden videos', secondaryText: '', secondaryTextTrue: false, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Language', secondaryText: 'English', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'Help & Feedback', secondaryText: '', secondaryTextTrue: false, toggleButton: false, rowFunction: () {},),
+              SettingsRow(mainText: 'About & Legal', secondaryText: '', secondaryTextTrue: false, toggleButton: false, rowFunction: () {},),
             ],
           ),
         ),

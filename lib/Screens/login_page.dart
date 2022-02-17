@@ -1,3 +1,6 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,8 +11,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>(); //key for form
-  bool showPassword = false;
+  final _formKey = GlobalKey<FormState>(); //key for form
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _showPassword = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +30,44 @@ class _LoginPageState extends State<LoginPage> {
     // final double width= MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+    Future signIn() async {
+      try{
+        showDialog(context: context,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.amber,
+            ),
+          );
+        });
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        Navigator.pop(context);
+        // setState(() {
+        //   _loading = true;
+        // });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'wrong-password') {
+          if (kDebugMode) {
+            print('Wrong password provided for the given email!');
+          }
+        } else {
+          if (kDebugMode) {
+            print(e.toString());
+          }
+        }
+      }
+    }
+
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.blueGrey[900],
         body: Container(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: Form(
-            key: formKey, //key for form
+            key: _formKey, //key for form
             child:ListView(
               scrollDirection: Axis.vertical,
               children: <Widget>[
@@ -55,13 +99,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                //Email TextField
                 TextFormField(
-                  onChanged: (text) {
-                    // print('email or number: $text');
-                  },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your Email or phone number';
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  validator: (email) {
+                    if (email!.isEmpty) {
+                      return 'Please enter your Email';
+                    } else if (!EmailValidator.validate(email)) {
+                        return 'Please enter correct Email';
                     } else {
                       return null;
                     }
@@ -71,17 +118,23 @@ class _LoginPageState extends State<LoginPage> {
                     fontFamily: "SourceSansPro",
                     fontSize: 15.0,
                   ),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.blueGrey,
-                      hintText: 'Email or phone number',
-                      hintStyle: TextStyle(
+                      hintText: 'Email',
+                      hintStyle: const TextStyle(
                           color: Colors.white54,
                           fontSize: 15.0,
                           fontFamily: "SourceSansPro"
                       ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
+                      suffixIcon: _emailController.text.isEmpty
+                          ? Container(width: 0)
+                          : IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => _emailController.clear(),
+                      ),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
                             color: Colors.deepOrangeAccent
@@ -89,11 +142,13 @@ class _LoginPageState extends State<LoginPage> {
                       )
                   ),
                 ),
+                //Password TextField
                 TextFormField(
-                  obscureText: !showPassword,
-                  onChanged: (text) {
-                    // print('password field: $text');
-                  },
+                  controller: _passwordController,
+                  obscureText: !_showPassword,
+                  // onChanged: (text) {
+                  //   // print('password field: $text');
+                  // },
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your password';
@@ -142,10 +197,10 @@ class _LoginPageState extends State<LoginPage> {
                     contentPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 0.0),
                     activeColor: Colors.white,
                     checkColor: Colors.amber,
-                    value: showPassword,
+                    value: _showPassword,
                     onChanged: (newValue) {
                       setState(() {
-                        showPassword = !showPassword;
+                        _showPassword = !_showPassword;
                       });
                     },
                     controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
@@ -153,8 +208,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
+                    if (_formKey.currentState!.validate()) {
+                      if (kDebugMode) {
+                        print(_emailController.text);
+                        print(_passwordController.text);
+                      }
+                      signIn();
                     }
                   },
                   child: const SizedBox(
@@ -218,6 +277,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    // Navigator.pushNamed(context, '/signup');
                     Navigator.pushNamed(context, '/signup');
                   },
                   child: const Padding(

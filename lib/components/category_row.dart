@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prime_video_clone/Screens/home_page.dart';
-// import 'package:prime_video_clone/main.dart';
 
 class ImageList {
   final String source;

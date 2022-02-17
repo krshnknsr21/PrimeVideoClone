@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "852247336403",
+    "project_id": "primeclone-587f4",
+    "storage_bucket": "primeclone-587f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852247336403:android:05d04096606077843f0b26",
+        "android_client_info": {
+          "package_name": "com.example.prime_video_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852247336403-rgbod5o0fij2e5v1id320iub1v4juhe6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoAlg2OwPXd5rLbE26DpnP0n3CkicGGCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852247336403-rgbod5o0fij2e5v1id320iub1v4juhe6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

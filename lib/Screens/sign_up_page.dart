@@ -1,21 +1,66 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Signup extends StatefulWidget{
-  const Signup({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget{
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  _SignupState createState() => _SignupState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupPageState extends State<SignupPage> {
   final formKey = GlobalKey<FormState>(); //key for form
   bool showPassword = false;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     // final double width= MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    Future signUp() async {
+      showDialog(context: context,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.amber,
+            ),
+          );
+        }
+      );
+      try{
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          if (kDebugMode) {
+            print('The password provided is too weak.');
+          }
+        } else if (e.code == 'email-already-in-use') {
+          if (kDebugMode) {
+            print('The account already exists for that email.');
+          }
+        } else {
+          if (kDebugMode) {
+            print(e.toString());
+          }
+        }
+      }
+      Navigator.pop(context);
+    }
 
     return Scaffold(
         key: _scaffoldKey,
@@ -47,7 +92,9 @@ class _SignupState extends State<Signup> {
                 SizedBox(height: height*0.02),
                 TextFormField(
                   onChanged: (text) {
-                    print('First text field: $text');
+                    if (kDebugMode) {
+                      print('Name: $text');
+                    }
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -81,46 +128,51 @@ class _SignupState extends State<Signup> {
                 ),
                 SizedBox(height: height*0.01),
                 TextFormField(
-                  onChanged: (text) {
-                    print('First text field: $text');
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  validator: (email) {
+                    if (email!.isEmpty) {
+                      return 'Please enter your Email';
+                    } else if (!EmailValidator.validate(email)) {
+                      return 'Please enter correct Email';
+                    } else {
+                      return null;
+                    }
                   },
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: "SourceSansPro",
                     fontSize: 15.0,
                   ),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.blueGrey,
-                      hintText: "Email",
-                      hintStyle: TextStyle(
+                      hintText: 'Email',
+                      hintStyle: const TextStyle(
                           color: Colors.white54,
                           fontSize: 15.0,
                           fontFamily: "SourceSansPro"
                       ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
+                      suffixIcon: emailController.text.isEmpty
+                          ? Container(width: 0)
+                          : IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => emailController.clear(),
+                      ),
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             width: 2.0,
                             color: Colors.deepOrangeAccent
                         ),
                       )
                   ),
-                  validator: (value) {
-                    // if(value==null || RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                    if(value!.isEmpty) {
-                      return "Enter correct email";
-                    } else {
-                      return null;
-                    }
-                  },
                 ),
                 SizedBox(height: height*0.01),
                 TextFormField(
                   obscureText: !showPassword,
-                  onChanged: (text) {
-                    print('First text field: $text');
-                  },
+                  controller: passwordController,
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: "SourceSansPro",
@@ -188,7 +240,11 @@ class _SignupState extends State<Signup> {
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
+                      if (kDebugMode) {
+                        print(emailController.text);
+                        print(passwordController.text);
+                      }
+                      signUp();
                     }
                   },
                   child: const SizedBox(
@@ -211,7 +267,8 @@ class _SignupState extends State<Signup> {
                 SizedBox(height: height*0.01),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pop(context);
+                    // Navigator.pushNamed(context, '/login');
                   },
                   child: const Text(
                     "Already have an account?",
