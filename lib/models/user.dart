@@ -1,16 +1,22 @@
-class PrimeVideoUser {
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
-  final String uid;
+class PrimeVideoUser with ChangeNotifier{
 
-  PrimeVideoUser({ required this.uid });
+  late String _uid;
+  User user = FirebaseAuth.instance.currentUser!;
 
-}
+  void addUser() {
+    if (kDebugMode) {
+      print("User Logged in");
+    }
+    notifyListeners();
+  }
 
-class UserData {
-
-  final String uid;
-  final String name;
-
-  UserData({ required this.uid, required this.name });
-
+  void setUID() {
+    _uid = user.uid;
+    if (kDebugMode) {
+      print("User ID has been set.");
+    }
+  }
 }

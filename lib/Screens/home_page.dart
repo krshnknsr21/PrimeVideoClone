@@ -55,15 +55,27 @@ class _HomePageState extends State<HomePage> {
           ),
           // backgroundColor: Colors.blueGrey[900],
           backgroundColor: const Color(0xFF0E171E),
-          body: TabBarView(
-            children: choices.map((Choice choice) {
-              return ChoicePage(
-                choice: choice,
+          body: Builder(
+            builder: (context) {
+              return TabBarView(
+                children: choices.map((Choice choice) {
+                  return ChoicePage(
+                    choice: choice,
+                  );
+                }).toList(),
               );
-            }).toList(),
+            }
           ),
         ),
       );
+  }
+  void showSnackBar() {
+    const snackBar = SnackBar(
+        content: Text(
+          'Welcome back, Krishna',
+        )
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
 

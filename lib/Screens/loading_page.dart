@@ -5,6 +5,8 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Loading');
+    return const CircularProgressIndicator(
+      color: Colors.amber,
+    );
   }
 }
