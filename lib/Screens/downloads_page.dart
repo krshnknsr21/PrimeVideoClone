@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prime_video_clone/components/background.dart';
 import 'package:prime_video_clone/components/download_item.dart';
 
 class DownloadsPage extends StatelessWidget {
@@ -6,16 +7,8 @@ class DownloadsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.01, 0.08, 0.18, 0.25, 0.3, 1],
-            colors: [Color(0xFF0f4e71), Color(0xFF103751), Color(0xFF0e202e), Color(0xFF0f1b27), Color(0xFF0e171e), Color(0xFF0E171E)]
-        ),
-      ),
-      child: Scaffold(
+    return AppBackground(
+      content: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: const Center(
@@ -80,9 +73,9 @@ class DownloadsPage extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
-                  const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
-                  const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
-                  const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
+                  // const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
+                  // const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
+                  // const DownloadItem(mainTitle: 'The Big Bang Theory', episodeInfo: '1 episode', fileSize: '236 MB', thumbnailImage: 'assets/r1c1.jpg'),
                   TextButton(
                       onPressed: () {},
                       child: Row(

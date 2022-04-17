@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prime_video_clone/components/category_row.dart';
 import 'package:prime_video_clone/components/carousel.dart';
+// import 'package:prime_video_clone/models/user.dart';
+// import 'package:provider/provider.dart';
 
 // TODO: To pass arguments to the next page after clearing the route stack
 // Navigator.pushNamedAndRemoveUntil(context, "/newRouteName", (r) => false, arguments: {
@@ -16,8 +17,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
-  User user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -29,9 +30,6 @@ class _HomePageState extends State<HomePage> {
                 'assets/prime_logo.png',
                 height: 80.0,
               ),
-              // child: Text(
-              //   user.email!,
-              // ),
             ),
             centerTitle: true,
             // backgroundColor: Colors.blueGrey[900],
@@ -53,7 +51,6 @@ class _HomePageState extends State<HomePage> {
               }).toList(),
             ),
           ),
-          // backgroundColor: Colors.blueGrey[900],
           backgroundColor: const Color(0xFF0E171E),
           body: Builder(
             builder: (context) {
@@ -69,14 +66,14 @@ class _HomePageState extends State<HomePage> {
         ),
       );
   }
-  void showSnackBar() {
-    const snackBar = SnackBar(
-        content: Text(
-          'Welcome back, Krishna',
-        )
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+  // void showSnackBar() {
+  //   final snackBar = SnackBar(
+  //       content: Text(
+  //         'Welcome back, ${Provider.of<PrimeVideoUser>(context).getUsername}',
+  //       )
+  //   );
+  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  // }
 }
 
 class Choice {

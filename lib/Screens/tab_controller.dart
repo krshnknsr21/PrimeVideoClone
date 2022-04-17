@@ -4,6 +4,8 @@ import 'package:prime_video_clone/Screens/channels_page.dart';
 import 'package:prime_video_clone/Screens/find_page.dart';
 import 'package:prime_video_clone/Screens/downloads_page.dart';
 import 'package:prime_video_clone/Screens/mystuff_page.dart';
+import 'package:prime_video_clone/models/user.dart';
+import 'package:provider/provider.dart';
 
 class BottomTabController extends StatefulWidget {
   const BottomTabController({Key? key}) : super(key: key);
@@ -25,8 +27,14 @@ class _BottomTabControllerState extends State<BottomTabController> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    Provider.of<PrimeVideoUser>(context, listen: false).setDetails();
+  }
 
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

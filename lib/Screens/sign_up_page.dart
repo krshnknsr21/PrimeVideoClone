@@ -1,10 +1,8 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:prime_video_clone/services/auth.dart';
 import 'package:provider/provider.dart';
-
 import 'loading_page.dart';
 
 class SignupPage extends StatefulWidget{
@@ -17,6 +15,7 @@ class SignupPage extends StatefulWidget{
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>(); //key for form
   bool _showPassword = false;
+  final _userNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -24,24 +23,21 @@ class _SignupPageState extends State<SignupPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _userNameController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    // final double width= MediaQuery.of(context).size.width;
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Stack(
       children: [
         Visibility(
           visible: Provider.of<Authenticate>(context).loading,
-          child: const Center(
-            child: CircularProgressIndicator(
-              color: Colors.amber,
-            )
-          ),
+          child: const LoadingPage(),
         ),
         Opacity(
         opacity: Provider.of<Authenticate>(context).loading ? 0.5 : 1,
@@ -74,6 +70,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: height*0.02),
                     TextFormField(
+                      controller: _userNameController,
                       onChanged: (text) {
                         if (kDebugMode) {
                           print('Name: $text');
@@ -224,10 +221,11 @@ class _SignupPageState extends State<SignupPage> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           if (kDebugMode) {
+                            print(_userNameController.text);
                             print(_emailController.text);
                             print(_passwordController.text);
                           }
-                          Provider.of<Authenticate>(context, listen: false).signUp(_emailController.text.trim(), _passwordController.text.trim());
+                          Provider.of<Authenticate>(context, listen: false).signUp(_userNameController.text.trim(), _emailController.text.trim(), _passwordController.text.trim());
                         }
                       },
                       child: const SizedBox(

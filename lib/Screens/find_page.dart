@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prime_video_clone/components/background.dart';
 
 class FindPage extends StatefulWidget {
   const FindPage({Key? key}) : super(key: key);
@@ -74,178 +75,180 @@ class _FindPageState extends State<FindPage> {
       );
     }
 
-    return Scaffold(
-        key: _scaffoldKey,
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0.01, 0.08, 0.18, 0.25, 0.3, 1],
-                colors: [Color(0xFF0f4e71), Color(0xFF103751), Color(0xFF0e202e), Color(0xFF0f1b27), Color(0xFF0e171e), Color(0xFF0E171E)]
+    return AppBackground(
+      content: Scaffold(
+          key: _scaffoldKey,
+          body: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.01, 0.08, 0.18, 0.25, 0.3, 1],
+                  colors: [Color(0xFF0f4e71), Color(0xFF103751), Color(0xFF0e202e), Color(0xFF0f1b27), Color(0xFF0e171e), Color(0xFF0E171E)]
+              ),
             ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: (width*0.05)),
-          child: Form(
-            key: formKey, //key for form
-            child: ListView(
-              children: [
-                //TODO: change text field to row
-                TextField(
-                  onChanged: (text) {},
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: "SourceSansPro",
-                    fontSize: 15.0,
-                  ),
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search_outlined),
-                    prefixIconColor: Color(0xffffffff),
-                    suffixIcon: Icon(Icons.mic),
-                    filled: true,
-                    fillColor: Color(0x610e171e),
-                    hintText: 'Search by actor, title..',
-                    hintStyle: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 18.0,
-                      fontFamily: "SourceSansPro"
+            padding: EdgeInsets.symmetric(horizontal: (width*0.05)),
+            child: Form(
+              key: formKey, //key for form
+              child: ListView(
+                children: [
+                  //TODO: change text field to row
+                  TextField(
+                    onChanged: (text) {},
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: "SourceSansPro",
+                      fontSize: 15.0,
                     ),
-                    focusColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 10.0,
-                        color: Colors.white,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search_outlined),
+                      prefixIconColor: Color(0xffffffff),
+                      suffixIcon: Icon(Icons.mic),
+                      filled: true,
+                      fillColor: Color(0x610e171e),
+                      hintText: 'Search by actor, title..',
+                      hintStyle: TextStyle(
+                        color: Colors.white54,
+                        fontSize: 18.0,
+                        fontFamily: "SourceSansPro"
                       ),
-                    ),
-                  ),
-                ),
-                Container(
-                  // height: 100.0,
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: Column(
-                    children: [
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Browse by',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "SourceSansPro"
-                          ),
+                      focusColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 10.0,
+                          color: Colors.white,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                browseButton('Movies'),
-                                browseButton('Amazon Originals'),
-                              ],
+                    ),
+                  ),
+                  Container(
+                    // height: 100.0,
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Column(
+                      children: [
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Browse by',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "SourceSansPro"
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                browseButton('TV'),
-                                browseButton('Kids'),
-                              ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  browseButton('Movies'),
+                                  browseButton('Amazon Originals'),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  browseButton('TV'),
+                                  browseButton('Kids'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: const Text(
+                            'Genres',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "SourceSansPro"
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            findRowItem('Drama'),
+                            findRowItem('Action and Adventure'),
+                            findRowItem('Romance'),
+                            findRowItem('Comedy'),
+                            findRowItem('Thriller'),
+                            const Divider(
+                              height: 2,
+                              color: Colors.grey,
+                            ),
+                            InkWell(
+                              onTap: (){},
+                              // hoverColor: Colors.black,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                alignment: Alignment.centerLeft,
+                                child: const Text(
+                                  'See more',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: const Text(
-                          'Genres',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "SourceSansPro"
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: const Text(
+                            'Languages',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "SourceSansPro"
+                            ),
                           ),
                         ),
-                      ),
-                      Column(
-                        children: [
-                          findRowItem('Drama'),
-                          findRowItem('Action and Adventure'),
-                          findRowItem('Romance'),
-                          findRowItem('Comedy'),
-                          findRowItem('Thriller'),
-                          const Divider(
-                            height: 2,
-                            color: Colors.grey,
-                          ),
-                          InkWell(
-                            onTap: (){},
-                            // hoverColor: Colors.black,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              alignment: Alignment.centerLeft,
-                              child: const Text(
-                                'See more',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 15,
+                        Column(
+                          children: [
+                            findRowItem('English'),
+                            findRowItem('Hindi'),
+                            findRowItem('Telugu'),
+                            findRowItem('Tamil'),
+                            findRowItem('Kannada'),
+                            findRowItem('Malayalam'),
+                            const Divider(
+                              height: 2,
+                              color: Colors.grey,
+                            ),
+                            InkWell(
+                              onTap: (){},
+                              // hoverColor: Colors.black,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                alignment: Alignment.centerLeft,
+                                child: const Text(
+                                  'See more',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: const Text(
-                          'Languages',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "SourceSansPro"
-                          ),
+                          ],
                         ),
-                      ),
-                      Column(
-                        children: [
-                          findRowItem('English'),
-                          findRowItem('Hindi'),
-                          findRowItem('Telugu'),
-                          findRowItem('Tamil'),
-                          findRowItem('Kannada'),
-                          findRowItem('Malayalam'),
-                          const Divider(
-                            height: 2,
-                            color: Colors.grey,
-                          ),
-                          InkWell(
-                            onTap: (){},
-                            // hoverColor: Colors.black,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              alignment: Alignment.centerLeft,
-                              child: const Text(
-                                'See more',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

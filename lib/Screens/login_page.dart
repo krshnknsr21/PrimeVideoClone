@@ -36,9 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Visibility(
           visible: Provider.of<Authenticate>(context).loading,
-          child: const Center(
-              child: LoadingPage()
-          ),
+          child: const LoadingPage(),
         ),
         Opacity(
         opacity: Provider.of<Authenticate>(context).loading ? 0.5 : 1,

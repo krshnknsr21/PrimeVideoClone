@@ -1,6 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prime_video_clone/components/background.dart';
 import 'package:prime_video_clone/components/settings_row.dart';
+import 'package:prime_video_clone/models/user.dart';
+import 'package:prime_video_clone/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class MyStuffPage extends StatefulWidget {
   const MyStuffPage({Key? key}) : super(key: key);
@@ -10,23 +13,10 @@ class MyStuffPage extends StatefulWidget {
 }
 
 class _MyStuffPageState extends State<MyStuffPage> {
-
-  void signOut() {
-    FirebaseAuth.instance.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.01, 0.08, 0.18, 0.25, 0.3, 1],
-            colors: [Color(0xFF0f4e71), Color(0xFF103751), Color(0xFF0e202e), Color(0xFF0f1b27), Color(0xFF0e171e), Color(0xFF0E171E)]
-        ),
-      ),
-      child: Scaffold(
+    return AppBackground(
+      content: Scaffold(
         appBar: AppBar(
           title: const Text(
             'Settings',
@@ -49,7 +39,48 @@ class _MyStuffPageState extends State<MyStuffPage> {
               SettingsRow(mainText: 'Parental Controls', secondaryText: 'Control what you can watch', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
               SettingsRow(mainText: 'Registered devices', secondaryText: 'See all registered devices', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
               SettingsRow(mainText: 'Clear video search history', secondaryText: '', secondaryTextTrue: false, toggleButton: false, rowFunction: () {},),
-              SettingsRow(mainText: 'Signed in as Krishna', secondaryText: 'Sign out of all Amazon apps', secondaryTextTrue: true, toggleButton: false, rowFunction: signOut,),
+              InkWell(
+                onTap: () {
+                  Provider.of<Authenticate>(context, listen: false).signOut();
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: (20)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Signed in as ${Provider.of<PrimeVideoUser>(context).getUsername}",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Text(
+                                "Sign out of all Amazon apps",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      height: 3,
+                      color: Colors.grey,
+                    )
+                  ],
+                ),
+              ),
               SettingsRow(mainText: 'Manage your Prime Video Channels', secondaryText: 'View or change your subscriptions', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),
               SettingsRow(mainText: 'Hidden videos', secondaryText: '', secondaryTextTrue: false, toggleButton: false, rowFunction: () {},),
               SettingsRow(mainText: 'Language', secondaryText: 'English', secondaryTextTrue: true, toggleButton: false, rowFunction: () {},),

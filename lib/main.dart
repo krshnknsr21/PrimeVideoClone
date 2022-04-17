@@ -19,10 +19,10 @@ Future main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => PrimeVideoUser(),
+          create: (_) => Authenticate(),
         ),
         ChangeNotifierProvider(
-          create: (_) => Authenticate(),
+          create: (_) => PrimeVideoUser(),
         ),
       ],
       child: const MyApp(),
@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
                   child: Text('Something went wrong!!'),
                 );
               } else if (snapshot.hasData) {
-                Provider.of<PrimeVideoUser>(context).setUID();
                 return const BottomTabController();
               } else if (snapshot.hasError){
                 return const Center(child: Text('Something went wrong!!'),);
@@ -75,6 +74,7 @@ class MyApp extends StatelessWidget {
                   child: Text('Something went wrong!!'),
                 );
               } else if (snapshot.hasData) {
+                // Provider.of<PrimeVideoUser>(context, listen: false).addDetails();
                 return const BottomTabController();
               } else if (snapshot.hasError){
                 return const Center(child: Text('Something went wrong!!'),);
